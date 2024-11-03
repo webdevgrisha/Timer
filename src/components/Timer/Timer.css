@@ -31,9 +31,6 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-height: 26%;
-    height: 10%;
-    padding: 0;
 }
 
 .timer .timer-container .curr-time {

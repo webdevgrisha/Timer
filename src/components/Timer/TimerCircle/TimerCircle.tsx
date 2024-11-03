@@ -6,6 +6,21 @@ interface TimerCircleProps {
   endTime: number;
 }
 
+/**
+ * TimerCircle component that visually represents the progress of a timer using an SVG circle.
+ *
+ * @component
+ *
+ * Props:
+ * @prop {number} currTime - The current elapsed time of the timer in seconds.
+ *                            Used to calculate the progress of the circle.
+ * @prop {number} endTime - The total time for the timer in seconds. Represents 100% of the circle's progress.
+ *
+ * Calculations:
+ * - `circleLength`: Represents the circumference of the circle based on its radius (45).
+ * - `progress`: The percentage of time elapsed, calculated as `currTime / endTime`.
+ * - `offset`: Adjusts the stroke offset for the progress circle to visualize the remaining time.
+ */
 function TimerCircle({ currTime, endTime }: TimerCircleProps) {
   const circleLength = 2 * Math.PI * 45;
   const progress = currTime / endTime;

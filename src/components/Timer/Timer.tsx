@@ -9,6 +9,34 @@ interface TimerProps {
   elapsedTime?: number;
 }
 
+/**
+ * Timer component that allows you to create a timer based on the number of seconds you pass in
+ *
+ * @component
+ *
+ * Props:
+ * @prop {string} title - The title of the timer, displayed at the top of the component.
+ * @prop {number} endTime - The total time in seconds that the timer will count up to.
+ *                          Should be a value between 0 and 3599 seconds.
+ * @prop {number} [elapsedTime=0] - The initial elapsed time in seconds when the timer starts.
+ *                                  Defaults to 0 if not provided. Should be a value between 0 and 3599 seconds.
+ *
+ * State:
+ * @state {number} currTime - Tracks the current elapsed time, updated every second when the timer is running.
+ * @state {boolean} isRunning - Tracks if the timer is currently active.
+ *
+ * Refs:
+ * @ref {NodeJS.Timeout | null} timerId - Stores the interval ID for the timer to manage start, pause, and reset functions.
+ *
+ * Methods:
+ * @method handleStart - Starts the timer if it isn't already running. Sets isRunning to true.
+ * @method handlePause - Pauses the timer if it is currently running. Sets isRunning to false.
+ * @method handleReset - Resets the timer to 0 and stops any active interval.
+ *
+ * Additional Info:
+ * This component has validation checks on the `endTime` and `elapsedTime` props to ensure they stay within the 0–3599 second range.
+ * If the values exceed this range, an error will be thrown.
+ */
 function Timer({ title, endTime, elapsedTime = 0 }: TimerProps) {
   const [currTime, setCurrTime] = useState<number>(elapsedTime);
   const [isRunning, setIsRunning] = useState<boolean>(false);
