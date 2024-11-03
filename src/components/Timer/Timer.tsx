@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./Timer.css";
 import TimerCircle from "./TimerCircle/TimerCircle";
 import { toast } from "react-toastify";
@@ -6,43 +6,48 @@ import { toast } from "react-toastify";
 interface TimerProps {
   title: string;
   endTime: number;
-  elspsedTime?: number;
+  elapsedTime?: number;
 }
 
-function Timer({ title, endTime, elspsedTime = 0 }: TimerProps) {
-  const [currTime, setCurrTime] = useState<number>(elspsedTime);
+function Timer({ title, endTime, elapsedTime = 0 }: TimerProps) {
+  const [currTime, setCurrTime] = useState<number>(elapsedTime);
+  const [isRunning, setIsRunning] = useState<boolean>(false);
   const timerId = useRef<null | NodeJS.Timeout>(null);
 
+  useEffect(() => {
+    return () => {
+      if (timerId.current !== null) {
+        clearInterval(timerId.current);
+      }
+    };
+  }, []);
+
   if (endTime >= 3600 || endTime < 0) {
-    toast.error("endTime can be greater than 59 minutes and 59 seconds or less then 0!");
-    throw new Error("endTime can be greater than 59 minutes and 59 seconds or less then 0!");
+    toast.error("endTime should be between 0 and 3599 seconds.");
+    throw new Error("endTime should be between 0 and 3599 seconds.");
   }
 
-  if(elspsedTime >= 3600 || elspsedTime < 0) {
-    toast.error("elspsedTime can be greater than 59 minutes and 59 seconds!");
-    throw new Error("endTime can be greater than 59 minutes and 59 seconds!");
+  if (elapsedTime >= 3600 || elapsedTime < 0) {
+    toast.error("elapsedTime should be between 0 and 3599 seconds.");
+    throw new Error("elapsedTime should be between 0 and 3599 seconds.");
   }
 
   const handleStart = () => {
     if (timerId.current !== null) {
-      toast.warning(
-        "You've already started this timer."
-      );
+      toast.warning("You've already started this timer.");
       return;
     }
 
-    timerId.current = setInterval(function run() {
-      if (currTime === endTime) {
-        clearInterval(timerId.current!);
-        timerId.current = null;
-        return;
-      }
+    setIsRunning(true);
 
+    timerId.current = setInterval(() => {
       setCurrTime((prevTime) => {
-        if (prevTime === endTime) {
-          clearInterval(timerId.current!);
+        if (prevTime >= endTime) {
+          if (timerId.current !== null) clearInterval(timerId.current);
           timerId.current = null;
-          return prevTime;
+
+          setIsRunning(false);
+          return endTime;
         }
 
         return prevTime + 1;
@@ -58,8 +63,11 @@ function Timer({ title, endTime, elspsedTime = 0 }: TimerProps) {
       return;
     }
 
+    setIsRunning(false);
+
     clearInterval(timerId.current);
     timerId.current = null;
+    setCurrTime((prevTime) => prevTime);
   };
 
   const handleReset = () => {
@@ -68,11 +76,15 @@ function Timer({ title, endTime, elspsedTime = 0 }: TimerProps) {
       timerId.current = null;
     }
 
+    setIsRunning(false);
     setCurrTime(0);
   };
 
   const currTimeFormat: string = convertTimeToFormat(currTime);
   const leftTimeFormat: string = convertTimeToFormat(endTime - currTime);
+
+  const isStartDisabled: boolean = isRunning || currTime === endTime;
+  const isResetDisabled: boolean = currTime === 0;
 
   return (
     <div className="timer">
@@ -83,13 +95,25 @@ function Timer({ title, endTime, elspsedTime = 0 }: TimerProps) {
         <span className="left-time">{leftTimeFormat} left</span>
       </div>
       <footer>
-        <button className="action-btn" onClick={handleStart}>
+        <button
+          className="action-btn"
+          disabled={isStartDisabled}
+          onClick={handleStart}
+        >
           Start
         </button>
-        <button className="action-btn" onClick={handlePause}>
+        <button
+          className="action-btn"
+          disabled={!isRunning}
+          onClick={handlePause}
+        >
           Pause
         </button>
-        <button className="action-btn" onClick={handleReset}>
+        <button
+          className="action-btn"
+          disabled={isResetDisabled}
+          onClick={handleReset}
+        >
           Reset
         </button>
       </footer>
@@ -97,9 +121,9 @@ function Timer({ title, endTime, elspsedTime = 0 }: TimerProps) {
   );
 }
 
-function convertTimeToFormat(currTime: number): string {
-  const minuts = String(Math.floor(currTime / 60)).padStart(2, "0");
-  const seconds = String(currTime % 60).padStart(2, "0");
+function convertTimeToFormat(secCount: number): string {
+  const minuts = String(Math.floor(secCount / 60)).padStart(2, "0");
+  const seconds = String(secCount % 60).padStart(2, "0");
 
   return `${minuts}:${seconds}`;
 }

@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 function App() {
   return (
     <>
-      <Timer title={"First timer"} endTime={3600} />
+      <Timer title={"First timer ffsdjkfshjdfhsdhjfgbshfdbhsdhfbsdbvwseFBUsdhvusdVUsvbuysBVDFShbhjvsdbfV"} endTime={5} />
       <ToastContainer />
     </>
   );
