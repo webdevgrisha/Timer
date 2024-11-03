@@ -43,22 +43,27 @@ function Timer({ title, endTime, elapsedTime = 0 }: TimerProps) {
   const timerId = useRef<null | NodeJS.Timeout>(null);
 
   useEffect(() => {
+    if (endTime >= 3600 || endTime < 0) {
+      toast.error("endTime should be between 0 and 3599 seconds.");
+      throw new Error("endTime should be between 0 and 3599 seconds.");
+    }
+
+    if (elapsedTime >= 3600 || elapsedTime < 0) {
+      toast.error("elapsedTime should be between 0 and 3599 seconds.");
+      throw new Error("elapsedTime should be between 0 and 3599 seconds.");
+    }
+
+    if (elapsedTime > endTime) {
+      toast.error("elapsedTime can't be greater than endTime.");
+      throw new Error("elapsedTime can't be greater than endTime.");
+    }
+
     return () => {
       if (timerId.current !== null) {
         clearInterval(timerId.current);
       }
     };
   }, []);
-
-  if (endTime >= 3600 || endTime < 0) {
-    toast.error("endTime should be between 0 and 3599 seconds.");
-    throw new Error("endTime should be between 0 and 3599 seconds.");
-  }
-
-  if (elapsedTime >= 3600 || elapsedTime < 0) {
-    toast.error("elapsedTime should be between 0 and 3599 seconds.");
-    throw new Error("elapsedTime should be between 0 and 3599 seconds.");
-  }
 
   const handleStart = () => {
     if (timerId.current !== null) {

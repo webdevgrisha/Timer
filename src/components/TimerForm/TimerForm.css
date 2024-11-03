@@ -1,0 +1,54 @@
+.timer-config {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+
+    background-color: #26273d;
+
+    padding: 3rem 5rem;
+    border-radius: 25px;
+}
+
+
+.timer-config input::placeholder {
+    color: rgb(190, 190, 190);
+}
+
+.timer-config input {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding: 0px 0.63rem 0px 0.63rem;
+    font-size: 1rem;
+    line-height: 1rem;
+    font-weight: 450;
+    border: 1px solid rgb(223, 231, 240);
+    border-radius: 0.25rem;
+    background-color: rgb(250, 251, 252);
+    outline: none;
+    appearance: none;
+    z-index: 1;
+    color: rgb(51, 51, 51);
+}
+
+.timer-config button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #606170;
+    border-radius: 5px;
+    background-color: transparent;
+    padding: 7px 20px;
+    height: 100%;
+    text-transform: uppercase;
+    font-weight: 700;
+
+    transition: all 0.4s;
+
+    &:hover {
+        transform: scale(0.95);
+        box-shadow: 0 0px 5px rgba(255, 255, 255, 0.59);
+        cursor: pointer;
+    }
+}
