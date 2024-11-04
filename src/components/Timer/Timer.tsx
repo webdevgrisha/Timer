@@ -54,12 +54,16 @@ function Timer({ title, endTime, elapsedTime = 0 }: TimerProps) {
       throw new Error("elapsedTime can't be greater than endTime.");
     }
 
+    if (!(Number.isInteger(elapsedTime) || Number.isInteger(endTime))) {
+      throw new Error("The timer only works with integers");
+    }
+
     return () => {
       if (timerId.current !== null) {
         clearInterval(timerId.current);
       }
     };
-  }, []);
+  }, [elapsedTime, endTime]);
 
   const handleStart = () => {
     if (timerId.current !== null) {
@@ -90,7 +94,6 @@ function Timer({ title, endTime, elapsedTime = 0 }: TimerProps) {
 
     clearInterval(timerId.current);
     timerId.current = null;
-    setCurrTime((prevTime) => prevTime);
   };
 
   const handleReset = () => {
