@@ -42,7 +42,7 @@ function TimerCircle({ currTime, endTime }: TimerCircleProps) {
         cy="50"
         r="45"
         className="background"
-        strokeWidth="5"
+        strokeWidth="4"
       ></circle>
 
       <circle
@@ -50,7 +50,7 @@ function TimerCircle({ currTime, endTime }: TimerCircleProps) {
         cy="50"
         r="45"
         className="progress"
-        strokeWidth="5"
+        strokeWidth="4"
         strokeDasharray={circleLength}
         strokeDashoffset={offset}
       ></circle>

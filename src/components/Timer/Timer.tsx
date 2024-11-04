@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import "./Timer.css";
 import TimerCircle from "./TimerCircle/TimerCircle";
-import { toast } from "react-toastify";
 
 interface TimerProps {
   title: string;
@@ -44,17 +43,14 @@ function Timer({ title, endTime, elapsedTime = 0 }: TimerProps) {
 
   useEffect(() => {
     if (endTime >= 3600 || endTime < 0) {
-      toast.error("endTime should be between 0 and 3599 seconds.");
       throw new Error("endTime should be between 0 and 3599 seconds.");
     }
 
     if (elapsedTime >= 3600 || elapsedTime < 0) {
-      toast.error("elapsedTime should be between 0 and 3599 seconds.");
       throw new Error("elapsedTime should be between 0 and 3599 seconds.");
     }
 
     if (elapsedTime > endTime) {
-      toast.error("elapsedTime can't be greater than endTime.");
       throw new Error("elapsedTime can't be greater than endTime.");
     }
 
@@ -67,7 +63,6 @@ function Timer({ title, endTime, elapsedTime = 0 }: TimerProps) {
 
   const handleStart = () => {
     if (timerId.current !== null) {
-      toast.warning("You've already started this timer.");
       return;
     }
 
@@ -89,12 +84,7 @@ function Timer({ title, endTime, elapsedTime = 0 }: TimerProps) {
   };
 
   const handlePause = () => {
-    if (timerId.current === null) {
-      toast.warning(
-        "You can't stop a timer that hasn't started or has already stopped!"
-      );
-      return;
-    }
+    if (timerId.current === null) return;
 
     setIsRunning(false);
 

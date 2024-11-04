@@ -8,9 +8,9 @@ import { TimerConfig } from "./interfaces.ts";
 
 function App() {
   const [timerConfig, setTimerConfig] = useState<TimerConfig>({
-    timerName: "",
-    endTime: "",
-    elapsedTime: "",
+    timerName: "Timer 1",
+    endTime: "60",
+    elapsedTime: "0",
   });
 
   const timerKey = `${timerConfig.timerName}-${timerConfig.endTime}-${timerConfig.elapsedTime}`;

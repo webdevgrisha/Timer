@@ -8,8 +8,8 @@ interface TimerFormProps {
 
 function TimerForm({ updateFunc }: TimerFormProps) {
   const [timerConfig, setTimerConfig] = useImmer<TimerConfig>({
-    timerName: "",
-    endTime: "",
+    timerName: "Timer 1",
+    endTime: "60",
     elapsedTime: "",
   });
 
@@ -36,11 +36,13 @@ function TimerForm({ updateFunc }: TimerFormProps) {
         type="number"
         placeholder="Time in seconds"
         onChange={(e) => handleInputChange("endTime", e.target.value)}
+        value={timerConfig.endTime}
       />
       <input
         type="number"
         placeholder="Elapsed time in seconds"
         onChange={(e) => handleInputChange("elapsedTime", e.target.value)}
+        value={timerConfig.elapsedTime}
       />
 
       <button>Save</button>

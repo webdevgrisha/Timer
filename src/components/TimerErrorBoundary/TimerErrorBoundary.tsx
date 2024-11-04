@@ -1,5 +1,6 @@
 import { Component, ReactNode } from "react";
 import "./TimerErrorBoundary.css";
+import { toast } from "react-toastify";
 
 interface TimerErrorBoundaryState {
   hasError: boolean;
@@ -25,6 +26,7 @@ class TimerErrorBoundary extends Component<
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
     console.log(error, errorInfo);
+    toast.error(error.message);
     this.setState({ errorMessage: error.message });
   }
 
@@ -32,9 +34,10 @@ class TimerErrorBoundary extends Component<
     if (this.state.hasError) {
       return (
         <>
-          <div className="timer">
+          <div className="timer error">
             <div className="timer-container">
-              <h3 className="error-message">{this.state.errorMessage}</h3>
+              <h3 className="title">Component crashed</h3>
+              <p className="message">{this.state.errorMessage}</p>
             </div>
           </div>
         </>

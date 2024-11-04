@@ -1,4 +1,15 @@
-.error-message {
+.timer.error {
+    background-color: rgb(218, 218, 218);
+}
+
+.timer.error .title {
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 10px;
+}
+
+.timer.error .message {
     text-align: center;
-    color: #B22222;
+    font-size: 1.1rem;
+    color: rgb(172, 65, 74);
 }
