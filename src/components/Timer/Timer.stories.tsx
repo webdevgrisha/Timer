@@ -1,7 +1,5 @@
-import React from "react";
+import { ComponentStory } from "@storybook/react";
 import Timer from "./Timer";
-// import Errr
-
 import "./TimerCircle/TimerCircle.css";
 import "../../index.css";
 import "../../reset.css";
@@ -12,7 +10,13 @@ export default {
   component: Timer,
 };
 
-const Template = (args) => <Timer {...args} />;
+interface TimerArgs {
+  title: string;
+  endTime: number;
+  elapsedTime?: number;
+}
+
+const Template: ComponentStory<typeof Timer> = (args: TimerArgs) => <Timer {...args} />;
 
 export const InitTime = Template.bind({});
 InitTime.args = {
@@ -23,7 +27,7 @@ InitTime.args = {
 
 export const Default = Template.bind({});
 Default.args = {
-  title: "My Timer",
+  title: "Default Timer",
   endTime: 120,
   elapsedTime: 0,
 };
