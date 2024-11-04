@@ -1,50 +1,27 @@
-# React + TypeScript + Vite
+# Test Assignment (Frontend Developer) - Timer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Description
 
-Currently, two official plugins are available:
+Timer - is a React component that is a countdown timer that can be used in web applications. The component allows you to start, pause and reset the timer, as well as visually count down the time with a dynamic display of the remaining time in MM:SS format.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Props
 
-## Expanding the ESLint configuration
+- **title**: `string` (required) - The title of the timer.
+- **endTime**: `int` (required) - The time in seconds until the timer ends (maximum of 3599 seconds).
+- **elapsedTime**: `int` (optional) - The initial elapsed time in seconds.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Functionality
 
-- Configure the top-level `parserOptions` property like this:
+- The timer displays the remaining time in the format MM:SS.
+- The timer supports a maximum duration of 59 minutes and 59 seconds. Passing a greater value for `endTime` will throw an exception.
+- When the time is up, the background of the timer alternates between green and red with an indefinite linear animation.
+- The reset button sets the timer back to 00:00, regardless of the `elapsedTime` prop.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Demo
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+- [gh-pages](https://webdevgrisha.github.io/Timer/)
+- [Storybook](https://www.chromatic.com/setup?appId=67293f755c888e5d71aeea98)
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Author
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+**Ryhor Roi**

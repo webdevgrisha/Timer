@@ -46,9 +46,9 @@ EndedTimer.args = {
   elapsedTime: 60,
 };
 
-export const ErrorTimer = Template.bind({});
-ErrorTimer.args = {
-  title: "Error Timer",
-  endTime: 3600,
-  elapsedTime: 60,
-};
+// export const ErrorTimer = Template.bind({});
+// ErrorTimer.args = {
+//   title: "Error Timer",
+//   endTime: 3600,
+//   elapsedTime: 60,
+// };
